@@ -1,0 +1,17 @@
+# Compiled files
+*.o
+*.out
+*.exe
+
+# Build directory
+build/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Backup or temp files
+*.bak
+*.tmp
