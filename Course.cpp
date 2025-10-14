@@ -5,6 +5,14 @@
 #include <iostream>
 #include <vector>
 
-int ad(int a,int b) {
-    return a + b;
-}
+class Course {
+    private:
+        string courseName;
+        int creditHours;
+        string letterGrade;
+
+    public:
+        Course(string name, int credits, string grade);
+
+
+};

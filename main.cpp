@@ -1,6 +1,7 @@
 #include "header/Course.h"
 #include "header/Student.h"
 #include "Course.cpp"
+#include "Student.cpp"
 #include <iomanip>
 #include <string>
 #include <iostream>
@@ -9,8 +10,28 @@
 using namespace std;
 
 int main () {
-  int result = ad(7, 9);
+    //take the number of course from the student
+    int numberofcourses;
+    cout << "Enter the number of courses: "<<endl;
+    cin >> numberofcourses;
+    cin.ignore();
+    
 
-  cout << result << endl;
+    // vector to hold the total number of course
+    vector<Course> totalCourses;
+    totalCourses.reserve(numberofcourses);
+
+    //main loop to take courses details
+    for(int i = 0; i < numberofcourses; i++){
+        string name;
+        int creditsHours;
+        string letterGrade;
+
+        cout <<"Enter course name :"<<endl;
+    }
+
+
+
+    Course course;
 
 }
