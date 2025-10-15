@@ -1,7 +1,5 @@
 #include "header/Course.h"
 #include "header/Student.h"
-#include "Course.cpp"
-#include "Student.cpp"
 #include <iomanip>
 #include <string>
 #include <iostream>
@@ -9,29 +7,50 @@
 
 using namespace std;
 
-int main () {
-    //take the number of course from the student
-    int numberofcourses;
-    cout << "Enter the number of courses: "<<endl;
-    cin >> numberofcourses;
-    cin.ignore();
-    
+// Constructor
+Course::Course(string name, int credits, string grade) {
+    courseName = name;
+    creditHours = credits;
+    letterGrade = grade;
+}
 
-    // vector to hold the total number of course
+// Destructor
+Course::~Course() {
+    cout << "Class destroyed. "<< endl;
+}
+
+int main() {
+    int numberofcourses;
+    cout << "Enter the number of courses: ";
+    cin >> numberofcourses;
+    cin.ignore(); // clear newline before getline
+
     vector<Course> totalCourses;
     totalCourses.reserve(numberofcourses);
 
-    //main loop to take courses details
-    for(int i = 0; i < numberofcourses; i++){
+    for (int i = 0; i < numberofcourses; i++) {
         string name;
         int creditsHours;
         string letterGrade;
 
-        cout <<"Enter course name :"<<endl;
+        cout << "\nEnter course name: ";
+        getline(cin, name);
+
+        cout << "Enter credit hours: ";
+        cin >> creditsHours;
+
+        cout << "Enter letter grade (e.g. A, B+, C-): ";
+        cin >> letterGrade;
+        cin.ignore(); // clear leftover newline before next getline
+
+        Course course(name, creditsHours, letterGrade);
+        totalCourses.push_back(course);
     }
 
+    cout << "\nYour courses entered:\n";
+    for (auto &detail : totalCourses) {
+        detail.display();  // display course detaills
+    }
 
-
-    Course course;
-
+    return 0;
 }

@@ -10,10 +10,18 @@ private:
 
 public:
     //default constructor
-    Course(){
-
-    }
+    Course(){}
+    
+    //parametized constroctor
     Course(string name, int credits, string grade);
+
     // destructor
     ~Course();
+
+    void display() const {
+    cout << "Course: " << courseName << endl; 
+    cout << "Credits: " << creditHours << endl;
+    cout << "Grade: " << letterGrade << endl;
+}
+
 };
