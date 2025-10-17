@@ -1,3 +1,12 @@
+/*
+Gisneiry Galan
+ Oct 16th,2025
+While doing the Student class I learned(or reinforced) about what should be inside a class and how to connect it with other files.
+Which was also difficul because I'm still learning about it. Also, is a group assigment, so knowing what to code so it can
+it can be good for my teammeates to continue (especially Kevin with the GPA calculation) was tricky.
+*/
+
+
 #include "Course.h"
 #include <vector>
 #include <string>
@@ -67,3 +76,4 @@ public:
         cout << "Standing: " << getStanding() << endl;
     }
 };
+
