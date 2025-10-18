@@ -4,7 +4,19 @@
 #include <string>
 #include <limits>
 #include <cctype>
+#include <algorithm>
 using namespace std;
+/*
+Kevin Silva Jimenez
+Oct 17th, 2025
+I was tasked with writing and handling the main function (main.cpp). Writing the functions to calculate GPA, 
+Standing, and cumulative points was straightforward. However, I did struggle to write the functions for input 
+validation and creating the chart/table. I had to use outside resources (specifically, w3schools and GeeksforGeeks) 
+in order to format the table and fix the constructors defined in Student.h and Course.h. 
+As mentioned, I made some adjustments to my partners’ classes as some errors appeared when calling the classes 
+to the main function (I.e. ambiguous type, failure to create class). The issue stemmed from when the constructor was called, 
+so I decided to format it as an initializer list (as we were working with const values).
+*/
 
 // Main function created by Kevin
 // While not asked in the assignment
@@ -21,8 +33,6 @@ bool isValidName(const string& name) {
     // declare variable that will be used to check if the input has a letter
     bool hasLetter = false;
 
-    // Using a for-loop, treat the name as an array of characters
-    // ex. Jane Doe = [J, a, n, e, , D, o, e]
     // iterate through each index
     for (char ch : name) {
         if (isalpha(static_cast<unsigned char>(ch))) {
@@ -48,6 +58,54 @@ bool isValidGrade(const string& grade) {
     }
     return false;
 }
+
+//EXTRA CREDIT, implemented by Abdoulaye Sedego
+void sortCourses(const vector<Course>& coursesConst) {
+    // copy so the original order in Student remains unchanged
+    vector<Course> courses = coursesConst;
+
+    int choice;
+    cout << "\nHow would you like to sort the courses?" << endl;
+    cout << "1. By Credits (Descending)" << endl;
+    cout << "2. By Course Name (Ascending)" << endl;
+    cout << "Enter your choice: ";
+
+    while (!(cin >> choice) || (choice != 1 && choice != 2)) {
+        cout << "Invalid choice. Enter 1 or 2: ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear newline
+
+    if (choice == 1) {
+        // Sort by credits descending
+        sort(courses.begin(), courses.end(), [](const Course& a, const Course& b) {
+            return a.getCredits() > b.getCredits();
+        });
+        cout << "\nCourses sorted by credits (descending):\n";
+    } else {
+        // Sort by course name ascending
+        sort(courses.begin(), courses.end(), [](const Course& a, const Course& b) {
+            return a.getName() < b.getName();
+        });
+        cout << "\nCourses sorted by course name (ascending):\n";
+    }
+
+    cout << left << setw(20) << "Course Name"
+         << setw(10) << "Credits"
+         << setw(10) << "Grade"
+         << setw(10) << "GradePts"
+         << setw(10) << "TotalPts" << endl;
+    cout << string(60, '-') << endl;
+
+    for (const auto& c : courses) {
+        c.display();
+    }
+
+    cout << string(60, '-') << endl;
+}
+//End EXTRA CREDIT sorting function
+// -------------------------------------------------------
 
 int main() {
 
@@ -117,6 +175,9 @@ int main() {
 
     // Print the transcript
     student.printTranscript();
+
+    //EXTRA CREDIT: Call the sorting function
+    sortCourses(student.getCourses());
 
     cout << "\nProgram complete.\n";
     return 0;

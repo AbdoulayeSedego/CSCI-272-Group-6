@@ -33,6 +33,11 @@ public:
         courses.push_back(c);
     }
 
+    // Provide read-only access to the stored courses added for sorting function for the EXTRA CREDIT
+    const std::vector<Course>& getCourses() const {
+    return courses;
+}
+
     // Compute GPA
     double calculateGPA() const {
         double totalPoints = 0.0;

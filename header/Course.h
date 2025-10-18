@@ -4,9 +4,9 @@
 /*
 Abdoulaye Sedego
 Oct 17th, 2025
-While working on the project, I have learn more about team work and code collaboration,
+While working on the project, I have learn a lot about team work and code collaboration,
 how to read other people code and write on top of it without breaking it. I have practice and learn more 
-about classes (OOP) in C++.
+about classes (OOP) in C++, I enjoyed working on the EXTRA CREDIT sorting function.
 */
 
 #include <string>
