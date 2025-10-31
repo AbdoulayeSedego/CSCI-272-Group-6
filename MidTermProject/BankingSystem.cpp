@@ -86,7 +86,7 @@ int main() {
 
 } while (choice != 6); // loop ends when user enters 6 (exit)
 
-return 0;
+
 
 
     // Terminate
@@ -95,4 +95,5 @@ return 0;
 
 
 }
+
 
