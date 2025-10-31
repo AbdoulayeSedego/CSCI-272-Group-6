@@ -48,6 +48,46 @@ int main() {
     
     myAccount.display();
     myAccount.showHistory();
+    do {
+    int choice ;
+    cout << "Menu: " << endl;
+    cout << "1) Deposit." << endl ;
+    cout << "2) Withdraw. " << endl ;
+    cout << "3) Show Balance." << endl ;
+    cout << "4) Show Account Info." << endl ;
+    cout << "5) Show Transaction History." << endl ;
+    cout << "6) Exit." << endl ;
+    cout << "Choose option: " << endl;
+    cin >> choice;
+
+    // switch to call the functions for each option on the menu
+    switch(choice){
+        case 1:
+            myAccount.deposit(); 
+            break;
+        case 2:
+            myAccount.withdraw();
+            break;
+        case 3:
+            myAccount.getBalance();
+            break;
+        case 4:
+            myAccount.display();
+            break;
+        case 5:
+            myAccount.showHistory();
+            break;
+        case 6:
+            cout << "Goodbye." << endl; // exit loop
+            break;
+        default:
+            cout << "Invalid choice, try again." << endl; // default, in case user enters invalid input 
+    }
+
+} while (choice != 6); // loop ends when user enters 6 (exit)
+
+return 0;
+
 
     // Terminate
     return 0;
@@ -55,3 +95,4 @@ int main() {
 
 
 }
+
