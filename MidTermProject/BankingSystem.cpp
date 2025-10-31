@@ -37,6 +37,18 @@ int main() {
     // Create a BankAccount object with the parameters
     BankAccount myAccount(ownerName, accountNumber, initialDeposit);
 
+    // Test the code, no actual data, only for testing purpose only
+    
+    myAccount.deposit(500.0);
+    myAccount.withdraw(200.0);
+
+    //end of test
+    
+    cout << "\nCurrent Balance: $" << myAccount.getBalance() << endl;  // Now works correctly!
+    
+    myAccount.display();
+    myAccount.showHistory();
+
     // Terminate
     return 0;
 
