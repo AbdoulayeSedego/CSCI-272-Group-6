@@ -1,92 +1,140 @@
 #include "BankAccount.h"
+#include <istream>
+#include <limits> // for numeric limits
 
-// Note: THIS IS NOT THE FINAL PROGRAM!! This is just a space to test the class
+// isValid(): function used to determine if a given input is valid
+bool isValid(const std::string &input) {
+
+    // Begin by checking if the input is empty
+    if (input.empty()) {
+        return false;
+    } else { // otherwise return true
+        return true;
+    }
+
+}
+
 int main() {
 
-    string userInput;
+    // Declare necessary variables
+    std::string ownerName, userInput;
+    int accountNumber;
+    double balance;
+
     // Ask user for their information
-    cout <<"==== Banking System ==="<<endl;
-    cout << "Enter your name: ";
-    getline(cin, userInput);
-    // Note: The user can enter blank space
-    // Add input validation to avoid empty space!!
-    // Assign name to variable
-    string ownerName = userInput;
+    std::cout <<"==== Banking System ==="<< std::endl;
+    std::cout << "Enter your name: ";
+    getline(std::cin, ownerName);
+
+    // Input validation: consider for the possibility that user
+    //                   can enter empty space as their name
+    while (!isValid(ownerName)) {
+        std::cout << "ERROR: INVALID ACCOUNT NAME!" << std::endl;
+        std::cout << "Enter your name: ";
+        getline(std::cin, ownerName);
+    }
+    // ----------------------------------------------------------
 
     // Ask user for an account number
-    cout << "Enter an account number: ";
-    // Since an account number does not need white-space
-    // a simple cin is acceptable
-    cin >> userInput;
-    // Since 'userInput' is a string by default, we will need to type-cast
-    // it to the right type (int)
-    int accountNumber = stoi(userInput);
+    std::cout << "Enter an account number: ";
+    // Input validation: consider that the user can either enter whitespace or
+    //                   a negative number as their input.
+    while (true) {
 
+        // Conditional
+        if (std::cin >> accountNumber) { // First, confirm if the input is acceptable
+            if (accountNumber > 0) { // If valid input, check to see if the input is greater
+                                     // than 0
+                break;
+            } else {
+                std::cout << "ERROR: INVALID ACCOUNT NUMBER!" << std::endl; // Otherwise the input was invalid
+            }
+        } else {
+            std::cout << "ERROR: INVALID ACCOUNT NUMBER!" << std::endl;
+            std::cin.clear(); // RESET THE FAIL STATE
+        }
+
+        // Ensure to 'flush' any bad inputs before re-trying
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Enter an account number: ";
+    }
+    // -------------------------------------------------------
     // Ask the user for an initial balance
-    cout << "Enter your initial deposit (>0) $: ";
-    cin >> userInput;
-    // Note: Ensure the user enters an amount greater than 0! (Input validation)
-    double initialDeposit = stod(userInput);
-    
+    std::cout << "Enter an initial deposit (>0) $: ";
+    while (true) {
+        if (std::cin >> balance) { // Check if assignment can be made
+            if (balance > 0) { // Check if the input is greater than 0
+                break; // if both checks are valid: break loop
+            } else { // In the condition that balance < 0
+                std::cout << "ERROR: INVALID BALANCE!" << std::endl;
+            }
+        } else {
+            std::cout << "ERROR: INVALID BALANCE!" << std::endl;
+            std::cin.clear();
 
-    // Create a BankAccount object with the parameters
-    BankAccount myAccount(ownerName, accountNumber, initialDeposit);
+        }
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Enter an initial deposit $: ";
+    }
+
+    // Create a BankAccount object using the parameters the user defined
+    BankAccount account(ownerName, accountNumber, balance);
 
     //new line for clarity
-    cout <<endl;
+    std::cout << std::endl;
     int choice ;
     do {
-    cout << "Menu: " << endl;
-    cout << "1) Deposit." << endl ;
-    cout << "2) Withdraw. " << endl ;
-    cout << "3) Show Balance." << endl ;
-    cout << "4) Show Account Info." << endl ;
-    cout << "5) Show Transaction History." << endl ;
-    cout << "6) Exit." << endl ;
-    cout << "Choose option: " << endl;
-    cin >> choice;
+        std::cout << "1) Deposit\n"
+          << "2) Withdraw\n"
+          << "3) Show Balance\n"
+          << "4) Show Account Info\n"
+          << "5) Show Transaction History\n"
+          << "6) Exit\n";
+        std::cout << "Choose option: " << std::endl;
+        std::cin >> choice;
 
-    // switch to call the functions for each option on the menu
-    switch(choice){
-        case 1:{
-            cout << "Enter the amount to deposit $: \n";
-            cin >> userInput;
-            int depositAmount = stod(userInput);
-            myAccount.deposit(depositAmount);
-            break;
-        }
-        case 2: {
-            cout << "Enter the amount to withdraw $: \n";
-            cin >> userInput;
-            // take user input as a string and convert it to double
-            int withdrawAmount = stod(userInput);
-            // store withdraw method return result into success variable
-            bool success = myAccount.withdraw(withdrawAmount);
-            if (success == true) {
-                cout << "withdrewn $:" <<withdrawAmount<<endl;
+        // switch to call the functions for each option on the menu
+        switch(choice){
+            case 1:{
+                std::cout << "Enter the amount to deposit $: \n";
+                std::cin >> userInput;
+                int depositAmount = stod(userInput);
+                account.deposit(depositAmount);
+                break;
             }
-            break;
+            case 2: {
+                std::cout << "Enter the amount to withdraw $: \n";
+                std::cin >> userInput;
+                // take user input as a string and convert it to double
+                int withdrawAmount = stod(userInput);
+                // store withdraw method return result into success variable
+                bool success = account.withdraw(withdrawAmount);
+                if (success == true) {
+                    std::cout << "withdrewn $:" <<withdrawAmount<< std::endl;
+                }
+                break;
+            }
+            case 3:
+                std::cout << "Balance: $" << std::fixed << std::setprecision(2) << account.getBalance() << std::endl;
+                break;
+            case 4:
+                account.display();
+                break;
+            case 5:
+                account.showHistory();
+                break;
+            case 6:
+                std::cout << "Goodbye." << std::endl; // exit loop
+                break;
+            default:
+                std::cout << "Invalid choice, try again." << std::endl; // default, in case user enters invalid input
         }
-        case 3:
-             cout << "Balance: $" << fixed << setprecision(2) << myAccount.getBalance() << endl;
-            break;
-        case 4:
-            myAccount.display();
-            break;
-        case 5:
-            myAccount.showHistory();
-            break;
-        case 6:
-            cout << "Goodbye." << endl; // exit loop
-            break;
-        default:
-            cout << "Invalid choice, try again." << endl; // default, in case user enters invalid input 
-    }
 
     } while (choice != 6); // loop ends when user enters 6 (exit)
 
     // Terminate
     return 0;
-//testing 
-}
 
+
+
+}
