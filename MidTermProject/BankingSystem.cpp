@@ -22,10 +22,11 @@ int main() {
     int accountNumber = stoi(userInput);
 
     // Ask the user for an initial balance
-    cout << "Enter your initial deposit $: ";
+    cout << "Enter your initial deposit (>0) $: ";
     cin >> userInput;
     // Note: Ensure the user enters an amount greater than 0! (Input validation)
     double initialDeposit = stod(userInput);
+    
 
     // Create a BankAccount object with the parameters
     BankAccount myAccount(ownerName, accountNumber, initialDeposit);
@@ -41,6 +42,9 @@ int main() {
     
     // myAccount.display();
     // myAccount.showHistory();
+
+    //new line for clarity
+    cout <<endl;
     int choice ;
     do {
     cout << "Menu: " << endl;
@@ -55,18 +59,23 @@ int main() {
 
     // switch to call the functions for each option on the menu
     switch(choice){
-        case 1:
-            myAccount.deposit(initialDeposit); 
+        case 1:{
+            cout << "Enter the amount to deposit $: \n";
+            cin >> userInput;
+            int depositAmount = stoi(userInput);
+            myAccount.deposit(depositAmount);
             break;
+        }
         case 2: {
-            cout << "Enter the amount to withdraw $: ";
+            cout << "Enter the amount to withdraw $: \n";
             cin >> userInput;
             int withdrawAmount = stoi(userInput);
             myAccount.withdraw(withdrawAmount);
+            cout << "You have withdrawn $:" <<withdrawAmount<<" Successfully!\n";
             break;
         }
         case 3:
-            myAccount.getBalance();
+            cout << "Balance: $" << myAccount.getBalance() << endl;
             break;
         case 4:
             myAccount.display();
@@ -88,7 +97,7 @@ int main() {
 
 }
 
-bool isValideName(string& name) {
-    if (name.empty()) return false;
-}
+// bool isValideName(string& name) {
+//     if (name.empty()) return false;
+// }
 
