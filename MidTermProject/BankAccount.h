@@ -1,88 +1,85 @@
+#include <iomanip>
 #include <iostream>
 #include <vector>
-#include <string>
-#include <iomanip>    
-#include <sstream>
-using namespace std;
 
-/* --------------------------------------------------------------
-   Helper Function: format a double as "$xxxx.xx"
-   e.g. 1234.5 → "1234.50"
-   -------------------------------------------------------------- */
-string money(double amount)
-{
-    stringstream ss;
-    ss << fixed << setprecision(2) << amount;
-    return "$" + ss.str();
-}
 
-// Create a class BankAccount
+// Create a class as defined in the assignment
 class BankAccount {
 private:
-    string ownerName; // name of the account holder
+    std::string ownerName; // name of the account holder
     int accountNumber; // account number associated with user
     double balance; // Account balance; can be adjusted
-    vector <string> history; // Account history
+   std:: vector <std::string> history; // Account history
 public:
     // Create a constructor to initialize a BankAccount object
-    BankAccount(const string &ownerName, const int accountNumber, const double balance) : 
-      ownerName(ownerName), 
-      accountNumber(accountNumber), 
-      balance(balance)
-      {
+    BankAccount(const std::string &ownerName, const int accountNumber, const double balance) {
+        this->ownerName = ownerName;
+        this->accountNumber = accountNumber;
+        this->balance = balance;
+
         // Announce
-        cout << "Account created successfully! " << endl;
+        std::cout << "Account created successfully! " << std::endl;
         // Record account creation
-        history.push_back("Account created with initial deposit: " + money(balance));
+        history.push_back("Account created for " + ownerName +
+                  " (Account #" + std::to_string(accountNumber) +
+                  ") with initial balance: $" + std::to_string(balance));
     };
 
-    // deposit method that allow users to make a deposit
+    // Include functions that were specified in the assignment
     void deposit(const double amount) {
         balance += amount; // For each instance the function is called, take the
                            // input and add it to the previous balance
+
         // Record this action to the 'history' vector
-        cout <<"Deposited: "<< money(amount) <<endl;;
-        history.push_back(ownerName + " made a deposit of " + money(amount));
+        history.push_back(ownerName + " made a deposit of $" + std::to_string(amount));
     }
-    // withdraw method, for user to withdraw money from their current balance
+
     bool withdraw(const double amount) {
         // Conditional to confirm whether the input is valid
+
         // If the amount exceeds the balance OR the amount entered
         // is less than or equal to zero -> a withdrawal is not possible
         if (amount <= 0) {
             // Invalid Input
             return false;
-        } else if (amount > balance) { // return false if the balance is insufisent 
-            cout << "Insufficient funds" << endl; 
+        } else if (amount > balance) {
+            std::cout << "Insufficient balance" << std::endl;
             return false;
         } else {
             balance -= amount; // remove the amount from balance
-            history.push_back(ownerName + " made a withdraw of " + money(amount));
+            history.push_back(ownerName + " made a withdrawal of $" + std::to_string(amount));
 
             // Special case: the account balance reaches $0
             if (balance == 0) {
-                cout << "Balance is now zero" << endl;
+                std::cout << "Balance is now zero" << std::endl;
             }
+
             return true;
         }
+
     }
 
-    // get Balance method, allowing users to see their current balance
-    double getBalance () const{
+    // getBalance() method allows for the user to see their current balance
+    double getBalance() const {
         return balance;
     }
 
-    // display method that allow users to display their account info
-    void display  () const{
-        cout << "Account Owner Name: "<< ownerName <<endl;
-        cout << "Acount Number     : "<< accountNumber <<endl;
-        cout << "Current Balance   : "<< money(balance) <<endl;
+    // display() method allows for the user to see their account information
+    void display () const {
+        std::cout << "Account Owner: " << ownerName << std::endl;
+        std::cout << "Account Number: " << accountNumber << std::endl;
+
+        // Print balance with decimal precision of 2
+        std::cout << std::fixed << std::setprecision(2);
+        std::cout << "Balance $: " << balance << std::endl;
     }
-//showHistory method, to display the list of the transaction did by the user
-    void showHistory() const {
-        cout <<"Transaction History("<<history.size()<<")"<<endl;
-        for (const auto& transaction : history){
-            cout <<"-"<<transaction<<endl;
+
+    // showHistory() method allows for the user to see their transaction, deposit, and
+    // withdrawal history
+    void showHistory () const {
+
+        for (const auto & i : history) {
+            std::cout << i << std::endl;
         }
     }
 
