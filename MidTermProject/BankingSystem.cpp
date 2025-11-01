@@ -5,6 +5,7 @@ int main() {
 
     string userInput;
     // Ask user for their information
+    cout <<"==== Banking System ==="<<endl;
     cout << "Enter your name: ";
     getline(cin, userInput);
     // Note: The user can enter blank space
@@ -31,18 +32,6 @@ int main() {
     // Create a BankAccount object with the parameters
     BankAccount myAccount(ownerName, accountNumber, initialDeposit);
 
-    // Test the code, no actual data, only for testing purpose only
-    
-    // myAccount.deposit(500.0);
-    // myAccount.withdraw(200.0);
-
-    //end of test
-    
-    // cout << "\nCurrent Balance: $" << myAccount.getBalance() << endl;  // Now works correctly!
-    
-    // myAccount.display();
-    // myAccount.showHistory();
-
     //new line for clarity
     cout <<endl;
     int choice ;
@@ -62,20 +51,24 @@ int main() {
         case 1:{
             cout << "Enter the amount to deposit $: \n";
             cin >> userInput;
-            int depositAmount = stoi(userInput);
+            int depositAmount = stod(userInput);
             myAccount.deposit(depositAmount);
             break;
         }
         case 2: {
             cout << "Enter the amount to withdraw $: \n";
             cin >> userInput;
-            int withdrawAmount = stoi(userInput);
-            myAccount.withdraw(withdrawAmount);
-            cout << "You have withdrawn $:" <<withdrawAmount<<" Successfully!\n";
+            // take user input as a string and convert it to double
+            int withdrawAmount = stod(userInput);
+            // store withdraw method return result into success variable
+            bool success = myAccount.withdraw(withdrawAmount);
+            if (success == true) {
+                cout << "withdrewn $:" <<withdrawAmount<<endl;
+            }
             break;
         }
         case 3:
-            cout << "Balance: $" << myAccount.getBalance() << endl;
+             cout << "Balance: $" << fixed << setprecision(2) << myAccount.getBalance() << endl;
             break;
         case 4:
             myAccount.display();
@@ -96,8 +89,4 @@ int main() {
     return 0;
 
 }
-
-// bool isValideName(string& name) {
-//     if (name.empty()) return false;
-// }
 

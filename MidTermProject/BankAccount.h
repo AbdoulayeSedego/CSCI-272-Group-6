@@ -41,7 +41,7 @@ public:
         balance += amount; // For each instance the function is called, take the
                            // input and add it to the previous balance
         // Record this action to the 'history' vector
-        cout <<"Deposited: "<< money(amount);
+        cout <<"Deposited: "<< money(amount) <<endl;;
         history.push_back(ownerName + " made a deposit of " + money(amount));
     }
     // withdraw method, for user to withdraw money from their current balance
@@ -52,8 +52,8 @@ public:
         if (amount <= 0) {
             // Invalid Input
             return false;
-        } else if (amount > balance) {
-            cout << "Insufficient balance" << endl;
+        } else if (amount > balance) { // return false if the balance is insufisent 
+            cout << "Insufficient funds" << endl; 
             return false;
         } else {
             balance -= amount; // remove the amount from balance
@@ -63,10 +63,8 @@ public:
             if (balance == 0) {
                 cout << "Balance is now zero" << endl;
             }
-
             return true;
         }
-
     }
 
     // get Balance method, allowing users to see their current balance
@@ -78,7 +76,7 @@ public:
     void display  () const{
         cout << "Account Owner Name: "<< ownerName <<endl;
         cout << "Acount Number     : "<< accountNumber <<endl;
-        cout << "Current Balance   : $"<< money(balance) <<endl;
+        cout << "Current Balance   : "<< money(balance) <<endl;
     }
 //showHistory method, to display the list of the transaction did by the user
     void showHistory() const {
@@ -87,15 +85,5 @@ public:
             cout <<"-"<<transaction<<endl;
         }
     }
-
-    /*
-double getBalance() const; — Returns current balance
-void display() const; — Prints account info
-void showHistory() const; — Prints transaction history*/
-
-
-
-
-
 
 };
