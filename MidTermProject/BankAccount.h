@@ -6,7 +6,7 @@
 using namespace std;
 
 /* --------------------------------------------------------------
-   Helper Function: format a double as "$xxxx.xx"
+   Helper Function: format a double as "$xxxx.xx", by Abdoulaye
    e.g. 1234.5 → "1234.50"
    -------------------------------------------------------------- */
 string money(double amount)
@@ -16,7 +16,7 @@ string money(double amount)
     return "$" + ss.str();
 }
 
-// Create a class BankAccount
+// Create a class BankAccount by Kevin
 class BankAccount {
 private:
     string ownerName; // name of the account holder
@@ -24,7 +24,7 @@ private:
     double balance; // Account balance; can be adjusted
     vector <string> history; // Account history
 public:
-    // Create a constructor to initialize a BankAccount object
+    // Create a constructor to initialize a BankAccount object by Kevin but changed from this->ownerName = ownerName; to Member Initializer List by Abdoulaye
     BankAccount(const string &ownerName, const int accountNumber, const double balance) : 
       ownerName(ownerName), 
       accountNumber(accountNumber), 
@@ -36,7 +36,7 @@ public:
         history.push_back("Account created with initial deposit: " + money(balance));
     };
 
-    // deposit method that allow users to make a deposit
+    // deposit method that allow users to make a deposit by Kevin
     void deposit(const double amount) {
         balance += amount; // For each instance the function is called, take the
                            // input and add it to the previous balance
@@ -44,7 +44,7 @@ public:
         cout <<"Deposited: "<< money(amount) <<endl;;
         history.push_back(ownerName + " made a deposit of " + money(amount));
     }
-    // withdraw method, for user to withdraw money from their current balance
+    // withdraw method, for user to withdraw money from their current balance by Kevin
     bool withdraw(const double amount) {
         // Conditional to confirm whether the input is valid
         // If the amount exceeds the balance OR the amount entered
@@ -67,18 +67,18 @@ public:
         }
     }
 
-    // get Balance method, allowing users to see their current balance
+    // get Balance method, allowing users to see their current balance by Abdoulaye
     double getBalance () const{
         return balance;
     }
 
-    // display method that allow users to display their account info
+    // display method that allow users to display their account info by Abdoulaye
     void display  () const{
         cout << "Account Owner Name: "<< ownerName <<endl;
         cout << "Acount Number     : "<< accountNumber <<endl;
         cout << "Current Balance   : "<< money(balance) <<endl;
     }
-//showHistory method, to display the list of the transaction did by the user
+//showHistory method, to display the list of the transaction did by the user by Abdoulaye
     void showHistory() const {
         cout <<"Transaction History("<<history.size()<<")"<<endl;
         for (const auto& transaction : history){
